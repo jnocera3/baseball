@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 
 # Read in arguments
 parser.add_argument("-playerlist","--playerlist", required=True, help='File containing list of players')
-parser.add_argument("-date","--date", required=False, default=datetime.date.today()-datetime.timedelta(days=1), help='Date to pull stats for')
+parser.add_argument("-date","--date", required=False, default=datetime.date.today()-datetime.timedelta(days=1), help='Date to pull stats for in YYYY-MM-DD format')
 
 # Parse the input
 args = parser.parse_args()

@@ -3,14 +3,14 @@
 
 There are 2 codes here for pulling baseball statistics from baseball reference using the [pybaseball](https://github.com/jldbc/pybaseball) python package:
 
-br_splits.py - pulls player total stats and split stats for a season and outputs them to an html file.
-game_stats.py - pulls player stats for a day and outputs them to an html file
+- br_splits.py - pulls player total stats and split stats for a season and outputs them to an html file.
+- game_stats.py - pulls player stats for a day and outputs them to an html file
 
 Users should supply a file containing a list of players. A sample, players.csv, is provided. It's important that the player name match exactly what is used by baseball reference otherwise the player will not be found. Accent marks are often needed.
 
 It is recommended that the br_splits.py code is run first to check that all players are found. This code will alert for missed players. The game_stats.py code will not. 
 
-Baseball reference limits the number of requests per minute so the br_splits.py sleeps 10 seconds between player request. Generally, assume the script will be able to pull about 5 players per minute.
+Baseball reference limits the number of requests per minute so br_splits.py sleeps 10 seconds between player request. Generally, assume the script will be able to pull about 5 players per minute.
 
 ## Installation:
 
@@ -46,7 +46,7 @@ options:
 
 The year to extract, file containing the player list and the output file name are all required.
 
-Example for extraction player stats for 2024:
+Example for extracting player stats for 2024:
 ```
 python br_splits.py -year 2024 -playerlist players.csv -outfile splits_2024.html
 ```

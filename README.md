@@ -21,7 +21,6 @@ git clone https://github.com/jnocera3/baseball.git
 ## Dependencies:
 
 ```
-pip install pandas
 pip install pybaseball
 ```
 

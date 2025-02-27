@@ -60,7 +60,7 @@ batters = pd.DataFrame()
 pitchers = pd.DataFrame()
 
 # Loop over player list
-with open(playerlist_file) as csvfile:
+with open(playerlist_file, encoding='utf-8') as csvfile:
 
     # Skips the headersg
     # Using next() method

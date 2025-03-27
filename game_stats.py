@@ -35,22 +35,22 @@ playerlist_file = str(args.playerlist)
 
 # Define output file and links to files before and after current date
 out_file = "stats_" + date + ".html"
-previous_file = "file://" + cwd + "/stats_" + previous_date + ".html"
-next_file = "file://" + cwd + "/stats_" + next_date + ".html"
+previous_file = "/stats_" + previous_date + ".html"
+next_file = "/stats_" + next_date + ".html"
 
 # Get all pitching stats for input date
 try:
     all_pitchers = pitching_stats_range(date)
-    all_pitchers.drop(['Age', '#days', 'Lev', 'Date', 'Tm', 'Opp', 'W', 'L', 'ERA', 'GSc', 'AB', 'IBB', 'SF', 'Str', 'StL', 'StS', 'GB/FB', 'LD', 'PU', 'WHIP', 'BAbip', 'SO9', 'SO/W', 'mlbID'], axis=1, inplace=True) 
+    all_pitchers.drop(['Age', '#days', 'Lev', 'Date', 'Tm', 'Opp', 'W', 'L', 'ERA', 'GSc', 'AB', 'IBB', 'SF', 'Str', 'StL', 'StS', 'GB/FB', 'LD', 'PU', 'WHIP', 'BAbip', 'SO9', 'SO/W', 'mlbID'], axis=1, inplace=True)
     all_pitchers.drop(all_pitchers.columns[1], axis=1, inplace=True)
     all_pitchers["SV"] = all_pitchers["SV"].fillna(0).astype(int)
 except:
     all_pitchers = pd.DataFrame()
 
 # Get all batting stats for input date
-try: 
+try:
     all_batters = batting_stats_range(date)
-    all_batters.drop(['Age', '#days', 'Lev', 'Date', 'Tm', 'Opp', 'G', 'PA', 'BA', 'OBP', 'SLG', 'OPS', 'mlbID'], axis=1, inplace=True) 
+    all_batters.drop(['Age', '#days', 'Lev', 'Date', 'Tm', 'Opp', 'G', 'PA', 'BA', 'OBP', 'SLG', 'OPS', 'mlbID'], axis=1, inplace=True)
     all_batters.drop(all_batters.columns[1], axis=1, inplace=True)
 except:
     all_batters = pd.DataFrame()
@@ -116,7 +116,7 @@ else:
     html_pitchers_table = '<p>No pitchers pitched on this day</p>\n'
 
 # Create header for html file
-html_header = '<center><a href="' + previous_file + '">Previous</a>&nbsp;<a href="' + next_file + '">Next</a>\n<h2>Stats for ' + date + '</h2></center>\n<b style="margin-left:10px">Batters</b>\n' 
+html_header = '<center><a href="' + previous_file + '">Previous</a>&nbsp;<a href="' + next_file + '">Next</a>\n<h2>Stats for ' + date + '</h2></center>\n<b style="margin-left:10px">Batters</b>\n'
 # Add header to html batters table
 html_table = html_header + html_batters_table
 # Add header for pitchers

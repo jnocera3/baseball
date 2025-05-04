@@ -129,7 +129,7 @@ with open(playerlist_file, encoding='utf-8') as csvfile:
             else:
                 splits.drop(['GS', 'PA', 'TB', 'SH', 'SF', 'IBB', 'ROE', 'BAbip', 'tOPS+', 'sOPS+', '1B'], axis=1, inplace=True) 
             # Convert entire dataframe to integers
-            splits = splits.astype(int)
+            splits = splits.fillna(0).astype(int)
             # Convert ERA back to float
             if player_type == "P":
                 splits['ERA'] = (splits['ERA'].astype(float) * 0.01).round(2).astype(str)

@@ -101,10 +101,10 @@ with open(playerlist_file, encoding='utf-8') as csvfile:
             if player_type == "P":
                 platoon = df.loc['Platoon Splits'].loc[['vs RHB','vs LHB']]
                 totals_pitch = pd.Series(df_pitch.loc['Season Totals -- Game-Level'].loc[player_totals],name=player_totals)
-                totals = pd.concat([totals,totals_pitch[["GS","ERA"]]])
+                totals = pd.concat([totals,totals_pitch[["GS","ERA","IP"]]])
                 
                 platoon["GS"] = [totals_pitch["GS"], totals_pitch["GS"]]
-                platoon = platoon.assign(GS=[totals_pitch["GS"], totals_pitch["GS"]], ERA=[totals_pitch["ERA"], totals_pitch["ERA"]])
+                platoon = platoon.assign(GS=[totals_pitch["GS"], totals_pitch["GS"]], ERA=[totals_pitch["ERA"], totals_pitch["ERA"]],IP=[totals_pitch["IP"], totals_pitch["IP"]])
             else: 
                 positions = df.loc['Defensive Positions'][df.loc["Defensive Positions"]["G"] > 1].index.str.replace("as ","").to_list()
                 if "PH for DH" in positions:
@@ -124,15 +124,17 @@ with open(playerlist_file, encoding='utf-8') as csvfile:
             # Remove unneeded stats
             if player_type == "P":
                 splits.drop(['PA', 'SO/W', 'TB', 'SH', 'SF', 'IBB', 'ROE', 'BAbip', 'tOPS+', 'sOPS+', '1B'], axis=1, inplace=True) 
-                # Convert ERA to an integer
+                # Convert ERA and IP to an integer
                 splits['ERA'] = splits['ERA'] * 100.0
+                splits['IP'] = splits['IP'] * 10.0
             else:
                 splits.drop(['GS', 'PA', 'TB', 'SH', 'SF', 'IBB', 'ROE', 'BAbip', 'tOPS+', 'sOPS+', '1B'], axis=1, inplace=True) 
             # Convert entire dataframe to integers
             splits = splits.fillna(0).astype(int)
-            # Convert ERA back to float
+            # Convert ERA and IP back to float
             if player_type == "P":
                 splits['ERA'] = (splits['ERA'].astype(float) * 0.01).round(2).astype(str)
+                splits['IP'] = (splits['IP'].astype(float) * 0.1).round(1).astype(str)
                 # Rearrange columns
                 cols = splits.columns.to_list()
                 cols = [cols[0]] + cols[17:] + cols[1:17]

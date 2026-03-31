@@ -5,11 +5,11 @@ There are 3 codes here for pulling baseball statistics from baseball reference u
 
 - br_splits.py - pulls player total stats and split stats for a season and outputs them to an html file.
 - game_stats.py - pulls player stats for a day and outputs them to an html file
-- spring_stats.py - pulls player spring training stats to date for the year requested. This doesn't require pybaseball.
+- season_stats.py - pulls player total stats for the year requested. This doesn't require pybaseball.
 
 Users should supply a file containing a list of players. A sample, players.csv, is provided. It's important that the player name match exactly what is used by baseball reference otherwise the player will not be found. Accent marks are often needed.
 
-It is recommended that the br_splits.py code is run first to check that all players are found. This code will alert for missed players. The game_stats.py and spring_stats.py codes will not. 
+It is recommended that the br_splits.py code is run first to check that all players are found. This code will alert for missed players. The game_stats.py and season_stats.py codes will not. 
 
 Baseball reference limits the number of requests per minute so br_splits.py sleeps 10 seconds between each player request. Generally, assume the script will be able to pull about 5 players per minute.
 
@@ -37,7 +37,7 @@ in the get_soup function within league_batting_stats.py and league_pitching_stat
 
 ## Running the code:
 
-### For Player Season Stats:
+### For Player Season Total and Split Stats:
 
 ```
 python br_splits.py -h
@@ -61,7 +61,7 @@ Example for extracting player stats for 2024:
 python br_splits.py -year 2024 -playerlist players.csv -outfile splits_2024.html
 ```
 
-### For single game player stats:
+### For Single Game Player Stats:
 
 ```
 python game_stats.py -h
@@ -83,11 +83,12 @@ python game_stats.py -date 2024-08-05 -playerlist players.csv
 ```
 Output will be placed in: stats_2024-08-05.html
 
-### For Spring Training Stats.
+### For Total Season Stats (Quick Summary):
 
 ```
-python spring_stats.py -h
-usage: spring_stats.py [-h] -year YEAR -playerlist PLAYERLIST -outfile OUTFILE
+python season_stats.py -h
+usage: season_stats.py [-h] -year YEAR -playerlist PLAYERLIST -outfile OUTFILE
+                       [-spring_stats]
 
 options:
   -h, --help            show this help message and exit
@@ -97,11 +98,20 @@ options:
                         File containing list of players
   -outfile OUTFILE, --outfile OUTFILE
                         Name of file to output player stats to
+  -spring_stats, --spring_stats
+                        Get spring stats instead of regular season stats
 ```
 
 The year to extract, file containing the player list and the output file name are all required.
 
-Example for pulling spring training stats for 2025:
+Example for pulling regular season stats for 2025:
 ```
-python spring_stats.py -year 2025 -playerlist players.csv -outfile spring_2025.html
+python season_stats.py -year 2025 -playerlist players.csv -outfile stats_2025.html
+```
+
+The code also has an option for pulling spring training stats. Just add the "-spring_stats" option.
+
+Example for pulling spring training stats for 2026:
+```
+python season_stats.py -year 2026 -playerlist players.csv -outfile spring_2026.html -spring_stats
 ```
